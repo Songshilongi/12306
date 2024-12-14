@@ -12,6 +12,10 @@
     <artifactId>frameworks</artifactId>
     <packaging>pom</packaging>
 
+    <modules>
+
+    </modules>
+
 
 
 
