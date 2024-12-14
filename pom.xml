@@ -10,6 +10,8 @@
     <description>12306自己写一遍</description>
     <modules>
         <module>dependencies</module>
+        <module>frameworks</module>
+        <module>services</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -44,6 +46,7 @@
         </dependency>
     </dependencies>
 
+    <!-- 依赖通过单独的pom进行管理 -->
     <dependencyManagement>
         <dependencies>
             <dependency>
