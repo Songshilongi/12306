@@ -9,7 +9,7 @@ public interface Builder<T> extends Serializable {
 
     /**
      * 构建对象
-     * @return 构建后的西乡
+     * @return 构建后的对象
      */
     T build();
 }
