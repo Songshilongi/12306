@@ -1,6 +1,6 @@
 package com.songshilong.framework.starter.convention.page;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
  * @Version: 1.0
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PageResponse<T> implements Serializable {
 
     @Serial
