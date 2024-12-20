@@ -37,7 +37,8 @@ public class CustomDbHashModShardingAlgorithm implements StandardShardingAlgorit
     @Override
     public String doSharding(final Collection<String> availableTargetNames, final PreciseShardingValue<Comparable<?>> shardingValue) {
         String suffix = String.valueOf(hashShardingValue(shardingValue.getValue()) % shardingCount / tableShardingCount);
-        return ShardingAutoTableAlgorithmUtil.findMatchedTargetName(availableTargetNames, suffix, shardingValue.getDataNodeInfo()).orElse(null);
+        return ShardingAutoTableAlgorithmUtil.findMatchedTargetName(availableTargetNames, suffix, shardingValue.getDataNodeInfo())
+                .orElse(null);
     }
 
     @Override
@@ -46,12 +47,14 @@ public class CustomDbHashModShardingAlgorithm implements StandardShardingAlgorit
     }
 
     private int getShardingCount(final Properties props) {
-        ShardingSpherePreconditions.checkState(props.containsKey(SHARDING_COUNT_KEY), () -> new ShardingAlgorithmInitializationException(getType(), "Sharding count cannot be null."));
+        ShardingSpherePreconditions.checkState(props.containsKey(SHARDING_COUNT_KEY),
+                () -> new ShardingAlgorithmInitializationException(getType(), "Sharding count cannot be null."));
         return Integer.parseInt(props.getProperty(SHARDING_COUNT_KEY));
     }
 
     private int getTableShardingCount(final Properties props) {
-        ShardingSpherePreconditions.checkState(props.containsKey(TABLE_SHARDING_COUNT_KEY), () -> new ShardingAlgorithmInitializationException(getType(), "Table sharding count cannot be null."));
+        ShardingSpherePreconditions.checkState(props.containsKey(TABLE_SHARDING_COUNT_KEY),
+                () -> new ShardingAlgorithmInitializationException(getType(), "Table sharding count cannot be null."));
         return Integer.parseInt(props.getProperty(TABLE_SHARDING_COUNT_KEY));
     }
 
