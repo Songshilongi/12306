@@ -43,7 +43,7 @@ public class AspectLogCore {
 
 
     @Around("logPointCut()")
-    public void printLog(ProceedingJoinPoint joinPoint) {
+    public Object printLog(ProceedingJoinPoint joinPoint) {
         long startTime = SystemClock.now();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Object result = null;
@@ -77,6 +77,7 @@ public class AspectLogCore {
         } catch (Throwable e) {
             throw new RuntimeException("AOP生成日志异常，请检查！");
         }
+        return result;
     }
 
 

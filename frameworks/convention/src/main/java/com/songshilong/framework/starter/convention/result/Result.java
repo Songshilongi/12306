@@ -1,6 +1,7 @@
 package com.songshilong.framework.starter.convention.result;
 
-import lombok.Data;
+import lombok.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -13,6 +14,9 @@ import java.io.Serializable;
  * @Version: 1.0
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Result<T> implements Serializable {
 
     @Serial
