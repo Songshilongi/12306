@@ -11,4 +11,9 @@ import com.songshilong.framework.starter.idempotent.core.IdempotentExecuteHandle
  * @Version: 1.0
  */
 public interface IdempotentTokenService extends IdempotentExecuteHandler {
+
+    /**
+     * 创建幂等验证Token
+     */
+    String createToken();
 }
