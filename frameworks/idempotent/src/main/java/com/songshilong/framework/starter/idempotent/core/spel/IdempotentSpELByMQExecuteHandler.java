@@ -12,7 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
  * @Description: IdempotentSpELByMQExecuteHandler
  * @Version: 1.0
  */
-public class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentExecuteHandler {
+public class IdempotentSpELByMQExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentSpELService{
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
         return null;

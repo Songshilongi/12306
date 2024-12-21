@@ -1,6 +1,11 @@
 package com.songshilong.framework.starter.idempotent.core;
 
 import com.songshilong.framework.starter.base.ApplicationContextHolder;
+import com.songshilong.framework.starter.idempotent.core.params.IdempotentParamService;
+import com.songshilong.framework.starter.idempotent.core.spel.IdempotentSpELByMQExecuteHandler;
+import com.songshilong.framework.starter.idempotent.core.spel.IdempotentSpELByRestAPIExecuteHandler;
+import com.songshilong.framework.starter.idempotent.core.spel.IdempotentSpELService;
+import com.songshilong.framework.starter.idempotent.core.token.IdempotentTokenService;
 import com.songshilong.framework.starter.idempotent.enums.IdempotentSceneEnum;
 import com.songshilong.framework.starter.idempotent.enums.IdempotentTypeEnum;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +18,6 @@ import lombok.RequiredArgsConstructor;
  * @Description: IdempotentExecuteHandlerFactory
  * @Version: 1.0
  */
-@RequiredArgsConstructor
 public final class IdempotentExecuteHandlerFactory {
 
     public static IdempotentExecuteHandler getHandler(IdempotentSceneEnum scene, IdempotentTypeEnum type) {
@@ -21,17 +25,15 @@ public final class IdempotentExecuteHandlerFactory {
         switch (scene) {
             case RESTAPI -> {
                 switch (type) {
-                    case TOKEN -> {}
-                    case PARAMS -> {}
-                    case SPEL -> {}
+                    case TOKEN -> result = ApplicationContextHolder.getBean(IdempotentTokenService.class);
+                    case PARAMS -> result = ApplicationContextHolder.getBean(IdempotentParamService.class);
+                    case SPEL -> result = ApplicationContextHolder.getBean(IdempotentSpELByRestAPIExecuteHandler.class);
                 }
             }
-            case MQ -> {}
+            case MQ -> result = ApplicationContextHolder.getBean(IdempotentSpELByMQExecuteHandler.class);
             default -> {}
         }
         return result;
     }
-
-
 
 }

@@ -12,7 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
  * @Description: IdempotentTokenExecuteHandler
  * @Version: 1.0
  */
-public class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler {
+public class IdempotentTokenExecuteHandler extends AbstractIdempotentExecuteHandler implements IdempotentTokenService {
     @Override
     protected IdempotentParamWrapper buildWrapper(ProceedingJoinPoint joinPoint) {
         return null;

@@ -28,17 +28,33 @@ public final class IdempotentAspect {
 
 
     @Around("pointCut()")
-    public Object handler(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
+    public Object handler(ProceedingJoinPoint joinPoint) throws Throwable {
         Idempotent idempotent = this.getIdempotent(joinPoint);
-
-
-
+        IdempotentExecuteHandler instance = IdempotentExecuteHandlerFactory.getHandler(idempotent.scene(), idempotent.type());
         Object result = null;
-
-
-
-
-
+        try {
+            // 先校验幂等
+            instance.execute(joinPoint, idempotent);
+            // 执行原方法
+            result = joinPoint.proceed();
+            // 幂等后置处理
+            instance.postProcessing();
+            /*
+            如果中间都没有报错，说明没有问题，否则抛出异常
+             */
+        }
+        catch (RepeatConsumptionException repeatConsumptionException) {
+            if (!repeatConsumptionException.getError()) {
+                return null;
+            }
+            throw repeatConsumptionException;
+        }
+        catch (Throwable throwable) {
+            instance.exceptionProcessing();
+            throw throwable;
+        } finally {
+            IdempotentContext.clean();
+        }
         return result;
     }
 

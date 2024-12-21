@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author Songshilong
  */
+@Getter
 @RequiredArgsConstructor
 public class RepeatConsumptionException extends RuntimeException {
-    @Getter
     private final Boolean error;
 }
