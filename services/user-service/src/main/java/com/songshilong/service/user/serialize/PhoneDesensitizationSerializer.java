@@ -13,7 +13,8 @@ import java.io.IOException;
  * @BelongsPackage: com.songshilong.service.user.serialize
  * @Author: Shilong Song
  * @CreateTime: 2024-12-22  22:39
- * @Description: PhoneDesensitizationSerializer
+ * @Description: PhoneDesensitizationSerializer <br>
+ * Jackson 自定义序列化器
  * @Version: 1.0
  */
 public class PhoneDesensitizationSerializer extends JsonSerializer<String> {

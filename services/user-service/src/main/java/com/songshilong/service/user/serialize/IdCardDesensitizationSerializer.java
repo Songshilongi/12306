@@ -12,7 +12,7 @@ import java.io.IOException;
  * @BelongsPackage: com.songshilong.service.user.serialize
  * @Author: Shilong Song
  * @CreateTime: 2024-12-22  22:42
- * @Description: TODO
+ * @Description: IdCardDesensitizationSerializer
  * @Version: 1.0
  */
 public class IdCardDesensitizationSerializer extends JsonSerializer<String> {
