@@ -5,6 +5,9 @@ import com.songshilong.framework.starter.web.Response;
 import com.songshilong.service.user.dto.request.UserLoginReqDTO;
 import com.songshilong.service.user.dto.response.UserLoginRespDTO;
 import com.songshilong.service.user.service.UserLoginService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,15 +25,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user-service")
 @RequiredArgsConstructor
+@Api("用户登录接口")
 public class UserLoginController {
 
     private final UserLoginService userLoginService;
 
 
     @PostMapping("/v1/login")
-    public ResponseData<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO userLoginRequestDTO) {
+    @ApiOperation("登录")
+    public ResponseData<UserLoginRespDTO> login(@RequestBody @Valid UserLoginReqDTO userLoginRequestDTO) {
         UserLoginRespDTO userLoginResponseDTO = userLoginService.login(userLoginRequestDTO);
         return Response.success(userLoginResponseDTO);
     }
+
 
 }
