@@ -1,0 +1,34 @@
+server:
+  port: 9001
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.110:8848
+        namespace: ddc57837-c29e-4e51-846d-1feb554be9d0
+
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
+
+  data:
+    redis:
+      host: 192.168.1.110
+      port: 6379
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+
+
+
+
