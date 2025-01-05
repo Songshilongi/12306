@@ -37,13 +37,13 @@ public class GlobalExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .orElse(StrUtil.EMPTY);
         log.error("[MethodName: {}], RequestRI: [{}], {}", request.getMethod(), parseRequestUrl(request), exception.toString());
-        return com.songshilong.framework.starter.web.Response.failure(BaseErrorCode.CLIENT_ERROR.code(), message);
+        return Response.failure(BaseErrorCode.CLIENT_ERROR.code(), message);
     }
 
     @ExceptionHandler(value = AbstractException.class)
     public ResponseData<Void> validAbstractException(HttpServletRequest request, AbstractException exception) {
         log.error("[MethodName: {}], RequestRI: [{}], {}", request.getMethod(), parseRequestUrl(request), exception.toString());
-        return com.songshilong.framework.starter.web.Response.failure(exception);
+        return Response.failure(exception);
     }
 
     /**
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Throwable.class)
     public ResponseData<Void> defaultErrorHandler(HttpServletRequest request, Throwable throwable) {
         log.error("[{}] URI: {}", request.getMethod(), parseRequestUrl(request), throwable);
-        return com.songshilong.framework.starter.web.Response.failure();
+        return Response.failure();
     }
 
     private String parseRequestUrl(HttpServletRequest request) {

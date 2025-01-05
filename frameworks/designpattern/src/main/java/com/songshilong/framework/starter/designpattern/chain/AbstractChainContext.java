@@ -6,6 +6,7 @@ import org.springframework.core.Ordered;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @BelongsProject: 12306-ssl
@@ -23,7 +24,7 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
      * <p>key---组织标识</p>
      * <p>value---对应的抽象责任链</p>
      */
-    private final Map<String, List<AbstractChainHandler<T>>> abstractChainHandlerContainer = new HashMap<>();
+    private final Map<String, List<AbstractChainHandler>> abstractChainHandlerContainer = new HashMap<>();
 
 
     /**
@@ -33,7 +34,7 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
      * @param requestParam 请求参数
      */
     public void handler(String mark, T requestParam) {
-        List<AbstractChainHandler<T>> abstractChainHandlerList = abstractChainHandlerContainer.get(mark);
+        List<AbstractChainHandler> abstractChainHandlerList = abstractChainHandlerContainer.get(mark);
         if (CollectionUtils.isEmpty(abstractChainHandlerList)) {
             throw new RuntimeException(String.format("[%s] Chain of Responsibility ID is undefined.", mark));
         }
@@ -46,15 +47,15 @@ public final class AbstractChainContext<T> implements CommandLineRunner {
         Map<String, AbstractChainHandler> chainFilterMap = ApplicationContextHolder.getBeansOfType(AbstractChainHandler.class);
         chainFilterMap.forEach((name, bean) -> {
             String mark = bean.mark();
-            List<AbstractChainHandler<T>> abstractChainHandlerList = abstractChainHandlerContainer.get(mark);
+            List<AbstractChainHandler> abstractChainHandlerList = abstractChainHandlerContainer.get(mark);
             if (CollectionUtils.isEmpty(abstractChainHandlerList)) {
                 abstractChainHandlerList = new ArrayList<>();
             }
             abstractChainHandlerList.add(bean);
-            List<AbstractChainHandler<T>> actualAbstractChainHandlerList = abstractChainHandlerList
+            List<AbstractChainHandler> actualAbstractChainHandlerList = abstractChainHandlerList
                     .stream()
                     .sorted(Comparator.comparing(Ordered::getOrder))
-                    .toList();
+                    .collect(Collectors.toList());
             abstractChainHandlerContainer.put(mark, actualAbstractChainHandlerList);
         });
     }

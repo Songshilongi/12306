@@ -2,6 +2,7 @@ package com.songshilong.service.user.dto.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -20,42 +21,49 @@ public class UserRegisterReqDTO {
      * 用户名
      */
     @ApiModelProperty("用户名")
+    @NotNull
     private String username;
 
     /**
      * 密码
      */
     @ApiModelProperty("密码")
+    @NotNull
     private String password;
 
     /**
      * 真实姓名
      */
     @ApiModelProperty("真实姓名")
+    @NotNull
     private String realName;
 
     /**
      * 证件类型
      */
     @ApiModelProperty("证件类型")
+    @NotNull
     private Integer idType;
 
     /**
      * 证件号
      */
     @ApiModelProperty("证件号")
+    @NotNull
     private String idCard;
 
     /**
      * 手机号
      */
     @ApiModelProperty("手机号")
+    @NotNull
     private String phone;
 
     /**
      * 邮箱
      */
     @ApiModelProperty("邮箱")
+    @NotNull
     private String mail;
 
     /**

@@ -1,10 +1,13 @@
 package com.songshilong.framework.starter.common.config;
 
+import com.songshilong.framework.starter.common.threadpool.build.ThreadPoolBuilder;
 import com.songshilong.framework.starter.common.toolkit.EnvironmentUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @BelongsProject: 12306-ssl
@@ -22,5 +25,12 @@ public class EnvironmentAutoConfiguration {
     public EnvironmentUtil environmentUtil(Environment environment) {
         return new EnvironmentUtil(environment);
     }
+
+
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public ThreadPoolExecutor threadPoolExecutor() {
+//        return new ThreadPoolBuilder().build();
+//    }
 
 }
