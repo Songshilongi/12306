@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.songshilong.framework.starter.cache.DistributedCache;
 import com.songshilong.framework.starter.common.toolkit.BeanUtil;
+import com.songshilong.framework.starter.convention.exception.ClientException;
 import com.songshilong.framework.starter.convention.exception.ServiceException;
 import com.songshilong.framework.starter.designpattern.chain.AbstractChainContext;
 import com.songshilong.service.user.constant.RedisConstant;
@@ -17,6 +18,8 @@ import com.songshilong.service.user.dao.mapper.UserMailMapper;
 import com.songshilong.service.user.dao.mapper.UserMapper;
 import com.songshilong.service.user.dao.mapper.UserPhoneMapper;
 import com.songshilong.service.user.dto.request.UserRegisterReqDTO;
+import com.songshilong.service.user.dto.response.UserQueryActualRespDTO;
+import com.songshilong.service.user.dto.response.UserQueryRespDTO;
 import com.songshilong.service.user.dto.response.UserRegisterRespDTO;
 import com.songshilong.service.user.enums.UserChainMarkEnum;
 import com.songshilong.service.user.enums.UserRegisterErrorCodeEnum;
@@ -61,6 +64,28 @@ public class UserServiceImpl implements UserService {
     private final AbstractChainContext<UserRegisterReqDTO> abstractChainContext;
     private final RedissonClient redissonClient;
 
+
+    @Override
+    public UserQueryActualRespDTO queryActualByUsername(String username) {
+        LambdaQueryWrapper<UserDO> userWrapper = Wrappers.lambdaQuery(UserDO.class)
+                .eq(UserDO::getUsername, username);
+        UserDO userDO = this.userMapper.selectOne(userWrapper);
+        if (Objects.isNull(userDO)) {
+            throw new ClientException("用户名不存在，请检查");
+        }
+        return BeanUtil.convert(userDO, UserQueryActualRespDTO.class);
+    }
+
+    @Override
+    public UserQueryRespDTO queryByUsername(String username) {
+        LambdaQueryWrapper<UserDO> userWrapper = Wrappers.lambdaQuery(UserDO.class)
+                .eq(UserDO::getUsername, username);
+        UserDO userDO = this.userMapper.selectOne(userWrapper);
+        if (Objects.isNull(userDO)) {
+            throw new ClientException("用户名不存在，请检查");
+        }
+        return BeanUtil.convert(userDO, UserQueryRespDTO.class);
+    }
 
     @Override
     public Long queryUserDeletionCount(Integer idType, String idCard) {

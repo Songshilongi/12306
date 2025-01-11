@@ -1,7 +1,10 @@
 package com.songshilong.service.user.service;
 
 import com.songshilong.service.user.dto.request.UserRegisterReqDTO;
+import com.songshilong.service.user.dto.response.UserQueryActualRespDTO;
+import com.songshilong.service.user.dto.response.UserQueryRespDTO;
 import com.songshilong.service.user.dto.response.UserRegisterRespDTO;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -37,4 +40,18 @@ public interface UserService {
      * @return 注册次数
      */
     Long queryUserDeletionCount(@NotNull Integer idType, @NotNull String idCard);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username 用户名
+     * @return {@link UserQueryRespDTO}
+     */
+    UserQueryRespDTO queryByUsername(@NotEmpty String username);
+
+    /**
+     * 根据用户名查询用户信息(真实信息)
+     * @param username 用户名
+     * @return {@link UserQueryActualRespDTO}
+     */
+    UserQueryActualRespDTO queryActualByUsername(@NotEmpty String username);
 }

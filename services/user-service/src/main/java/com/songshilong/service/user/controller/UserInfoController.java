@@ -3,16 +3,17 @@ package com.songshilong.service.user.controller;
 import com.songshilong.framework.starter.convention.result.ResponseData;
 import com.songshilong.framework.starter.web.Response;
 import com.songshilong.service.user.dto.request.UserRegisterReqDTO;
+import com.songshilong.service.user.dto.response.UserQueryActualRespDTO;
+import com.songshilong.service.user.dto.response.UserQueryRespDTO;
 import com.songshilong.service.user.dto.response.UserRegisterRespDTO;
 import com.songshilong.service.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @BelongsProject: 12306-ssl
@@ -36,6 +37,20 @@ public class UserInfoController {
     @ApiOperation("注册用户")
     public ResponseData<UserRegisterRespDTO> register(@RequestBody @Valid UserRegisterReqDTO requestParams) {
         UserRegisterRespDTO responseData = userService.register(requestParams);
+        return Response.success(responseData);
+    }
+
+    @GetMapping("/query")
+    @ApiOperation("查询用户信息")
+    public ResponseData<UserQueryRespDTO> queryByUsername(@RequestParam @NotEmpty String username) {
+        UserQueryRespDTO responseData =  userService.queryByUsername(username);
+        return Response.success(responseData);
+    }
+
+    @GetMapping("/actual/query")
+    @ApiOperation("查询用户信息")
+    public ResponseData<UserQueryActualRespDTO> queryActualByUsername(@RequestParam @NotEmpty String username) {
+        UserQueryActualRespDTO responseData =  userService.queryActualByUsername(username);
         return Response.success(responseData);
     }
 
