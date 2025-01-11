@@ -6,3 +6,7 @@ spring:
           uri: lb://user-service/api/user-service/**
           predicates:
             - Path=/api/user-service/**
+        - id: ticket-service
+          uri: lb://ticket-service/api/ticket-service/**
+          predicates:
+            - Path=/api/ticket-service/**

@@ -1,0 +1,35 @@
+server:
+  port: 9002
+  servlet:
+    context-path: /api/ticket-service
+spring:
+  application:
+    name: ticket-service
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.1.110:3306/12306_ticket?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.110:8848
+        namespace: ddc57837-c29e-4e51-846d-1feb554be9d0
+      config:
+        server-addr: 192.168.1.110:8848
+        import-check:
+          enabled: false
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
