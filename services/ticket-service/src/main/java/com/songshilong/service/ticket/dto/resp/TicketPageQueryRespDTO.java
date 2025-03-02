@@ -1,5 +1,6 @@
 package com.songshilong.service.ticket.dto.resp;
 
+import com.songshilong.service.ticket.dto.domain.TicketListDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

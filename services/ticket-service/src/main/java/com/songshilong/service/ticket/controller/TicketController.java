@@ -3,6 +3,7 @@ package com.songshilong.service.ticket.controller;
 import com.songshilong.framework.starter.convention.result.ResponseData;
 import com.songshilong.framework.starter.web.Response;
 import com.songshilong.service.ticket.dto.req.TicketPageQueryReqDTO;
+import com.songshilong.service.ticket.dto.resp.TicketPageQueryRespDTO;
 import com.songshilong.service.ticket.service.TicketService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
